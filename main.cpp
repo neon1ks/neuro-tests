@@ -22,6 +22,17 @@ TEST(narray, test02) {
 	}
 }
 
+TEST(narray, test03) {
+	NArray<int> test_array;
+	ASSERT_EQ(int(1), test_array.getBlock());
+	test_array.setBlock(-5);
+	ASSERT_EQ(int(1), test_array.getBlock());
+
+	const int Len = 5;
+	test_array.setBlock(Len);
+	ASSERT_EQ(int(Len), test_array.getBlock());
+}
+
 int main(int argc, char *argv[]) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
