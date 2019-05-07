@@ -8,8 +8,7 @@ LIBS += -lgtest -lpthread
 INCLUDEPATH += "../../"
 
 SOURCES += \
-        main.cpp \
-    ../../narray.cpp
+    main.cpp
 
 HEADERS += \
     ../../narray.h
