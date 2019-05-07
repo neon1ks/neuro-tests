@@ -63,6 +63,11 @@ TEST(narray, test04) {
 	ASSERT_NE(One, test_array.getSize());
 	ASSERT_EQ(Three, test_array.getSize());
 	ASSERT_NE(Five, test_array.getSize());
+
+	// Проверка на правильное копирование
+	for (int i = 0; i < Three; ++i) {
+		ASSERT_EQ(i, test_array.get(i));
+	}
 }
 
 int main(int argc, char *argv[]) {
