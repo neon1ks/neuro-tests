@@ -6,7 +6,26 @@
 
 #define GTEST_COUT std::cerr
 
-void print_array(const NMatrix<int> &obj) {
+void print_array(const NArray<int> &obj) {
+	int size = obj.getSize();
+	int len = obj.getLenght();
+	int *data = obj.getData();
+
+	GTEST_COUT << "============================================================\n";
+	GTEST_COUT << "size = " << size;
+	GTEST_COUT << ", len = " << len << std::endl;
+
+	std::string out;
+
+	for (int i = 0; i < len; ++i) {
+		out += std::to_string(data[i]) + " ";
+	}
+
+	GTEST_COUT << out << std::endl;
+	GTEST_COUT << "============================================================\n";
+}
+
+void print_matrix(const NMatrix<int> &obj) {
 	int size_row = obj.getSizeRow();
 	int size_column = obj.getSizeColumn();
 	int len_row = obj.getLenRow();
@@ -497,6 +516,227 @@ TEST(nmatrix, test04) {
 		ASSERT_EQ(6, test_matrix.get(i, 3));
 		ASSERT_EQ(7, test_matrix.get(i, 4));
 	}
+}
+
+TEST(nmatrix, mathematical_operation_1) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+
+	const int len_row = 4;
+	const int len_column = 4;
+
+	matrix_A.init(len_row, len_column, 2);
+	matrix_B.init(len_row, len_column, 3);
+
+	matrix_A.sum(matrix_B);
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(5, matrix_A.get(i, j));
+		}
+	}
+}
+
+TEST(nmatrix, mathematical_operation_2) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+	NMatrix<int> matrix_C;
+	NMatrix<int> matrix_D;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	matrix_A.init(len_row, len_column, 0);
+	matrix_B.init(len_column, len_row, 0);
+
+	matrix_A.set(2, 0, 0);
+	matrix_A.set(-3, 0, 1);
+	matrix_A.set(1, 0, 2);
+	matrix_A.set(5, 1, 0);
+	matrix_A.set(4, 1, 1);
+	matrix_A.set(-2, 1, 2);
+
+	matrix_B.set(-7, 0, 0);
+	matrix_B.set(5, 0, 1);
+	matrix_B.set(2, 1, 0);
+	matrix_B.set(-1, 1, 1);
+	matrix_B.set(4, 2, 0);
+	matrix_B.set(3, 2, 1);
+
+	matrix_C.mul(matrix_A, matrix_B);
+
+	ASSERT_EQ(-16, matrix_C.get(0, 0));
+	ASSERT_EQ(16, matrix_C.get(0, 1));
+	ASSERT_EQ(-35, matrix_C.get(1, 0));
+	ASSERT_EQ(15, matrix_C.get(1, 1));
+}
+
+// operators
+
+TEST(narray, operator_01) {
+	const int Len = 5;
+	NArray<int> test_array = NArray<int>(Len);
+	ASSERT_EQ(Len, test_array.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		test_array.set(i, i);
+		ASSERT_EQ(i, test_array.get(i));
+	}
+
+	NArray<int> array2 = NArray<int>(Len);
+	array2 = test_array + 2;
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(i + 2, array2.get(i));
+	}
+}
+
+TEST(narray, operator_02) {
+	const int Len = 5;
+	NArray<int> test_array = NArray<int>(Len);
+	ASSERT_EQ(Len, test_array.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		test_array.set(i + 2, i);
+	}
+
+	NArray<int> array2 = NArray<int>(Len);
+	array2 = test_array - 2;
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(i, array2.get(i));
+	}
+}
+
+TEST(narray, operator_03) {
+	const int Len = 5;
+	NArray<int> test_array = NArray<int>(Len);
+	ASSERT_EQ(Len, test_array.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		test_array.set(i, i);
+	}
+
+	NArray<int> array2 = NArray<int>(Len);
+	array2 = test_array * 2;
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(i * 2, array2.get(i));
+	}
+}
+
+TEST(narray, operator_04) {
+	const int Len = 5;
+	NArray<int> test_array = NArray<int>(Len);
+	ASSERT_EQ(Len, test_array.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		test_array.set(i * 2, i);
+	}
+
+	NArray<int> array2 = NArray<int>(Len);
+	array2 = test_array / 2;
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(i, array2.get(i));
+	}
+}
+
+TEST(narray, operator_05) {
+	const int Len = 5;
+	NArray<int> array1 = NArray<int>(Len);
+	NArray<int> array2 = NArray<int>(Len);
+	ASSERT_EQ(Len, array1.getSize());
+	ASSERT_EQ(Len, array2.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		array1.set(i * 2, i);
+		array2.set(i * 2 + 1, i);
+	}
+
+	NArray<int> array3 = NArray<int>(Len);
+	array3 = array1 + array2;
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(i * 4 + 1, array3.get(i));
+	}
+}
+
+TEST(narray, operator_06) {
+	const int Len = 5;
+	NArray<int> array1 = NArray<int>(Len);
+	NArray<int> array2 = NArray<int>(Len);
+	ASSERT_EQ(Len, array1.getSize());
+	ASSERT_EQ(Len, array2.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		array1.set(i * 2 + 1, i);
+		array2.set(i * 2, i);
+	}
+
+	NArray<int> array3 = NArray<int>(Len);
+	array3 = array1 - array2;
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(1, array3.get(i));
+	}
+}
+
+TEST(narray, operator_07) {
+	const int Len = 5;
+	NArray<int> array1 = NArray<int>(Len);
+	NArray<int> array2 = NArray<int>(Len);
+	ASSERT_EQ(Len, array1.getSize());
+	ASSERT_EQ(Len, array2.getSize());
+
+	for (int i = 0; i < Len; ++i) {
+		array1.set(i, i);
+		array2.set(i * 2, i);
+	}
+
+	NArray<int> array3 = NArray<int>(Len);
+	array3 = array1 * array2;
+
+	for (int i = 0; i < Len; ++i) {
+		ASSERT_EQ(i * i * 2, array3.get(i));
+	}
+}
+
+TEST(narray, operator_08) {
+	const int Row = 3;
+	const int Column = 4;
+	NArray<int> array;
+	NMatrix<int> matrix;
+
+	int value = 0;
+
+	array.init(Row, value);
+	matrix.init(Row, Column, value);
+
+	// 4 3 7  *  1 4 7 5  = 78 29 89 92
+	//           6 2 4 3
+	//           8 1 7 9
+
+	array.set(4, 0);
+	array.set(3, 1);
+	array.set(7, 2);
+
+	matrix.set(1, 0, 0);
+	matrix.set(4, 0, 1);
+	matrix.set(7, 0, 2);
+	matrix.set(5, 0, 3);
+
+	matrix.set(6, 1, 0);
+	matrix.set(2, 1, 1);
+	matrix.set(4, 1, 2);
+	matrix.set(3, 1, 3);
+
+	matrix.set(8, 2, 0);
+	matrix.set(1, 2, 1);
+	matrix.set(7, 2, 2);
+	matrix.set(9, 2, 3);
+
+	NArray<int> result = NArray<int>(Column);
+	result = array * matrix;
+
+	ASSERT_EQ(78, result.get(0));
+	ASSERT_EQ(29, result.get(1));
+	ASSERT_EQ(89, result.get(2));
+	ASSERT_EQ(92, result.get(3));
 }
 
 int main(int argc, char *argv[]) {
