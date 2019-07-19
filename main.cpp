@@ -739,6 +739,269 @@ TEST(narray, operator_08) {
 	ASSERT_EQ(92, result.get(3));
 }
 
+//==============================================================================
+
+// 	NMatrix<NType> operator+(const NType& value) const;
+TEST(nmatrix, operator_01) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	int init = 0;
+	int value = 5;
+
+	matrix_A.init(len_row, len_column, init);
+	matrix_B.init(len_row, len_column, init);
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(init, matrix_A.get(i, j));
+		}
+	}
+
+	matrix_B = matrix_A + value;
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(value, matrix_B.get(i, j));
+		}
+	}
+}
+
+//NMatrix<NType> operator-(const NType& value) const;
+TEST(nmatrix, operator_02) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	int init = 7;
+	int value = 5;
+	int result = 2;
+
+	matrix_A.init(len_row, len_column, init);
+	matrix_B.init(len_row, len_column, init);
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(init, matrix_A.get(i, j));
+		}
+	}
+
+	matrix_B = matrix_A - value;
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(result, matrix_B.get(i, j));
+		}
+	}
+}
+
+//NMatrix<NType> operator*(const NType& value) const;
+TEST(nmatrix, operator_03) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	int init = 7;
+	int value = 5;
+	int result = 35;
+
+	matrix_A.init(len_row, len_column, init);
+	matrix_B.init(len_row, len_column, init);
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(init, matrix_A.get(i, j));
+		}
+	}
+
+	matrix_B = matrix_A * value;
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(result, matrix_B.get(i, j));
+		}
+	}
+}
+
+//NMatrix<NType> operator/(const NType& value) const;
+TEST(nmatrix, operator_04) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	int init = 20;
+	int value = 5;
+	int result = 4;
+
+	matrix_A.init(len_row, len_column, init);
+	matrix_B.init(len_row, len_column, init);
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(init, matrix_A.get(i, j));
+		}
+	}
+
+	matrix_B = matrix_A / value;
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(result, matrix_B.get(i, j));
+		}
+	}
+}
+
+//NMatrix<NType> operator+(const NMatrix<NType>& B) const;
+TEST(nmatrix, operator_05) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+	NMatrix<int> matrix_C;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	int init = 4;
+	int value = 5;
+	int result = 9;
+
+	matrix_A.init(len_row, len_column, init);
+	matrix_B.init(len_row, len_column, value);
+
+	matrix_C = matrix_A + matrix_B;
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(result, matrix_C.get(i, j));
+		}
+	}
+}
+
+//NMatrix<NType> operator-(const NMatrix<NType>& B) const;
+TEST(nmatrix, operator_06) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+	NMatrix<int> matrix_C;
+
+	const int len_row = 2;
+	const int len_column = 3;
+
+	int init = 25;
+	int value = 9;
+	int result = 16;
+
+	matrix_A.init(len_row, len_column, init);
+	matrix_B.init(len_row, len_column, value);
+
+	matrix_C = matrix_A - matrix_B;
+
+	for (int i = 0; i < len_row; ++i) {
+		for (int j = 0; j < len_column; ++j) {
+			ASSERT_EQ(result, matrix_C.get(i, j));
+		}
+	}
+}
+
+//NMatrix<NType> operator*(const NMatrix<NType>& B) const;
+TEST(nmatrix, operator_07) {
+	NMatrix<int> matrix_A;
+	NMatrix<int> matrix_B;
+	NMatrix<int> matrix_C;
+
+	// 5 3 8  *  6 4 9 9  = 92 73 84 102
+	// 7 2 1     2 7 5 3    53 46 76 75
+	//           7 4 3 6
+
+	const int len_row_a = 2;
+	const int len_column_a = 3;
+
+	const int len_row_b = 3;
+	const int len_column_b = 4;
+
+	int init = 0;
+
+	matrix_A.init(len_row_a, len_column_a, init);
+	matrix_B.init(len_row_b, len_column_b, init);
+
+	matrix_A.set(5, 0, 0);
+	matrix_A.set(3, 0, 1);
+	matrix_A.set(8, 0, 2);
+
+	matrix_A.set(7, 1, 0);
+	matrix_A.set(2, 1, 1);
+	matrix_A.set(1, 1, 2);
+
+	matrix_B.set(6, 0, 0);
+	matrix_B.set(4, 0, 1);
+	matrix_B.set(9, 0, 2);
+	matrix_B.set(9, 0, 3);
+
+	matrix_B.set(2, 1, 0);
+	matrix_B.set(7, 1, 1);
+	matrix_B.set(5, 1, 2);
+	matrix_B.set(3, 1, 3);
+
+	matrix_B.set(7, 2, 0);
+	matrix_B.set(4, 2, 1);
+	matrix_B.set(3, 2, 2);
+	matrix_B.set(6, 2, 3);
+
+	matrix_C = matrix_A * matrix_B;
+
+	ASSERT_EQ(92, matrix_C.get(0, 0));
+	ASSERT_EQ(73, matrix_C.get(0, 1));
+	ASSERT_EQ(84, matrix_C.get(0, 2));
+	ASSERT_EQ(102, matrix_C.get(0, 3));
+
+	ASSERT_EQ(53, matrix_C.get(1, 0));
+	ASSERT_EQ(46, matrix_C.get(1, 1));
+	ASSERT_EQ(76, matrix_C.get(1, 2));
+	ASSERT_EQ(75, matrix_C.get(1, 3));
+}
+
+//NArray<NType> operator*(const NArray<NType>& B) const;
+TEST(nmatrix, operator_08) {
+	const int Row = 2;
+	const int Column = 3;
+	NArray<int> array;
+	NMatrix<int> matrix;
+
+	int value = 0;
+	matrix.init(Row, Column, value);
+	array.init(Column, value);
+
+	// 5 3 8  *  4  =  83
+	// 7 2 1  *  5     44
+	//           6
+
+	matrix.set(5, 0, 0);
+	matrix.set(3, 0, 1);
+	matrix.set(8, 0, 2);
+
+	matrix.set(7, 1, 0);
+	matrix.set(2, 1, 1);
+	matrix.set(1, 1, 2);
+
+	array.set(4, 0);
+	array.set(5, 1);
+	array.set(6, 2);
+
+	NArray<int> result = NArray<int>(Row);
+
+	result = matrix * array;
+
+	ASSERT_EQ(83, result.get(0));
+	ASSERT_EQ(44, result.get(1));
+}
+
 int main(int argc, char *argv[]) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
