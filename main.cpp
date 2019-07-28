@@ -219,17 +219,16 @@ TEST(nmatrix, test01) {
 TEST(nmatrix, test02) {
 	NMatrix<int> test_matrix;
 
-	const int Zero = 0;
 	const int One = 1;
 	const int Two = 2;
 	const int Three = 3;
 	const int len_row = 4;
 	const int len_column = 3;
 
-	test_matrix.init(len_row, len_column, Zero);
+	test_matrix.init(len_row, len_column, int{0});
 	for (int i = 0; i < len_row; ++i) {
 		for (int j = 0; j < len_column; ++j) {
-			ASSERT_EQ(Zero, test_matrix.get(i, j));
+			ASSERT_EQ(int{0}, test_matrix.get(i, j));
 		}
 	}
 	ASSERT_EQ(len_row, test_matrix.getSizeRow());
@@ -275,7 +274,6 @@ TEST(nmatrix, test02) {
 TEST(nmatrix, test03) {
 	NMatrix<int> test_matrix;
 
-	const int Zero = 0;
 	const int len_row = 4;
 	const int len_column = 3;
 
@@ -298,7 +296,7 @@ TEST(nmatrix, test03) {
 	ASSERT_EQ(len_row + 1, test_matrix.getLenRow());
 	ASSERT_EQ(len_column, test_matrix.getLenColumn());
 	for (int j = 0; j < len_column; ++j) {
-		ASSERT_EQ(Zero, test_matrix.get(0, j));
+		ASSERT_EQ(int{0}, test_matrix.get(0, j));
 		ASSERT_EQ(1, test_matrix.get(1, j));
 		ASSERT_EQ(5, test_matrix.get(2, j));
 		ASSERT_EQ(2, test_matrix.get(3, j));
@@ -311,7 +309,7 @@ TEST(nmatrix, test03) {
 	ASSERT_EQ(len_row + 2, test_matrix.getLenRow());
 	ASSERT_EQ(len_column, test_matrix.getLenColumn());
 	for (int j = 0; j < len_column; ++j) {
-		ASSERT_EQ(Zero, test_matrix.get(0, j));
+		ASSERT_EQ(int{0}, test_matrix.get(0, j));
 		ASSERT_EQ(1, test_matrix.get(1, j));
 		ASSERT_EQ(5, test_matrix.get(2, j));
 		ASSERT_EQ(2, test_matrix.get(3, j));
@@ -325,7 +323,7 @@ TEST(nmatrix, test03) {
 	ASSERT_EQ(len_row + 4, test_matrix.getLenRow());
 	ASSERT_EQ(len_column, test_matrix.getLenColumn());
 	for (int j = 0; j < len_column; ++j) {
-		ASSERT_EQ(Zero, test_matrix.get(0, j));
+		ASSERT_EQ(int{0}, test_matrix.get(0, j));
 		ASSERT_EQ(1, test_matrix.get(1, j));
 		ASSERT_EQ(5, test_matrix.get(2, j));
 		ASSERT_EQ(2, test_matrix.get(3, j));
@@ -341,7 +339,7 @@ TEST(nmatrix, test03) {
 	ASSERT_EQ(len_row + 4, test_matrix.getLenRow());
 	ASSERT_EQ(len_column, test_matrix.getLenColumn());
 	for (int j = 0; j < len_column; ++j) {
-		ASSERT_EQ(Zero, test_matrix.get(0, j));
+		ASSERT_EQ(int{0}, test_matrix.get(0, j));
 		ASSERT_EQ(1, test_matrix.get(1, j));
 		ASSERT_EQ(5, test_matrix.get(2, j));
 		ASSERT_EQ(2, test_matrix.get(3, j));
@@ -357,7 +355,7 @@ TEST(nmatrix, test03) {
 	ASSERT_EQ(len_row + 3, test_matrix.getLenRow());
 	ASSERT_EQ(len_column, test_matrix.getLenColumn());
 	for (int j = 0; j < len_column; ++j) {
-		ASSERT_EQ(Zero, test_matrix.get(0, j));
+		ASSERT_EQ(int{0}, test_matrix.get(0, j));
 		ASSERT_EQ(1, test_matrix.get(1, j));
 		ASSERT_EQ(5, test_matrix.get(2, j));
 		ASSERT_EQ(2, test_matrix.get(3, j));
@@ -373,7 +371,7 @@ TEST(nmatrix, test03) {
 	ASSERT_EQ(len_column, test_matrix.getLenColumn());
 
 	for (int j = 0; j < len_column; ++j) {
-		ASSERT_EQ(Zero, test_matrix.get(0, j));
+		ASSERT_EQ(int{0}, test_matrix.get(0, j));
 		ASSERT_EQ(1, test_matrix.get(1, j));
 		ASSERT_EQ(5, test_matrix.get(2, j));
 		ASSERT_EQ(2, test_matrix.get(3, j));
@@ -399,7 +397,6 @@ TEST(nmatrix, test03) {
 TEST(nmatrix, test04) {
 	NMatrix<int> test_matrix;
 
-	const int Zero = 0;
 	const int len_row = 3;
 	const int len_column = 4;
 
@@ -422,7 +419,7 @@ TEST(nmatrix, test04) {
 	ASSERT_EQ(len_row, test_matrix.getLenRow());
 	ASSERT_EQ(len_column + 1, test_matrix.getLenColumn());
 	for (int i = 0; i < len_row; ++i) {
-		ASSERT_EQ(Zero, test_matrix.get(i, 0));
+		ASSERT_EQ(int{0}, test_matrix.get(i, 0));
 		ASSERT_EQ(5, test_matrix.get(i, 1));
 		ASSERT_EQ(1, test_matrix.get(i, 2));
 		ASSERT_EQ(2, test_matrix.get(i, 3));
@@ -435,7 +432,7 @@ TEST(nmatrix, test04) {
 	ASSERT_EQ(len_row, test_matrix.getLenRow());
 	ASSERT_EQ(len_column + 2, test_matrix.getLenColumn());
 	for (int i = 0; i < len_row; ++i) {
-		ASSERT_EQ(Zero, test_matrix.get(i, 0));
+		ASSERT_EQ(int{0}, test_matrix.get(i, 0));
 		ASSERT_EQ(5, test_matrix.get(i, 1));
 		ASSERT_EQ(1, test_matrix.get(i, 2));
 		ASSERT_EQ(2, test_matrix.get(i, 3));
@@ -449,7 +446,7 @@ TEST(nmatrix, test04) {
 	ASSERT_EQ(len_row, test_matrix.getLenRow());
 	ASSERT_EQ(len_column + 4, test_matrix.getLenColumn());
 	for (int i = 0; i < len_row; ++i) {
-		ASSERT_EQ(Zero, test_matrix.get(i, 0));
+		ASSERT_EQ(int{0}, test_matrix.get(i, 0));
 		ASSERT_EQ(5, test_matrix.get(i, 1));
 		ASSERT_EQ(1, test_matrix.get(i, 2));
 		ASSERT_EQ(2, test_matrix.get(i, 3));
@@ -465,7 +462,7 @@ TEST(nmatrix, test04) {
 	ASSERT_EQ(len_row, test_matrix.getLenRow());
 	ASSERT_EQ(len_column + 4, test_matrix.getLenColumn());
 	for (int i = 0; i < len_row; ++i) {
-		ASSERT_EQ(Zero, test_matrix.get(i, 0));
+		ASSERT_EQ(int{0}, test_matrix.get(i, 0));
 		ASSERT_EQ(5, test_matrix.get(i, 1));
 		ASSERT_EQ(1, test_matrix.get(i, 2));
 		ASSERT_EQ(2, test_matrix.get(i, 3));
@@ -481,7 +478,7 @@ TEST(nmatrix, test04) {
 	ASSERT_EQ(len_row, test_matrix.getLenRow());
 	ASSERT_EQ(len_column + 3, test_matrix.getLenColumn());
 	for (int i = 0; i < len_row; ++i) {
-		ASSERT_EQ(Zero, test_matrix.get(i, 0));
+		ASSERT_EQ(int{0}, test_matrix.get(i, 0));
 		ASSERT_EQ(5, test_matrix.get(i, 1));
 		ASSERT_EQ(1, test_matrix.get(i, 2));
 		ASSERT_EQ(2, test_matrix.get(i, 3));
@@ -496,7 +493,7 @@ TEST(nmatrix, test04) {
 	ASSERT_EQ(len_row, test_matrix.getLenRow());
 	ASSERT_EQ(len_column + 2, test_matrix.getLenColumn());
 	for (int i = 0; i < len_row; ++i) {
-		ASSERT_EQ(Zero, test_matrix.get(i, 0));
+		ASSERT_EQ(int{0}, test_matrix.get(i, 0));
 		ASSERT_EQ(5, test_matrix.get(i, 1));
 		ASSERT_EQ(1, test_matrix.get(i, 2));
 		ASSERT_EQ(3, test_matrix.get(i, 3));
